@@ -116,3 +116,31 @@ public class ProyectoPokemon
 
         entrada.close();
     }
+     public static void iniciarPartida(Scanner entrada, String nombre_jugador)
+    {
+        System.out.println("┌──────────────────────────────────────────────────────────────┐");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                 ¡Comienza la aventura Pokémon!               │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("│                                                              │");
+        System.out.println("└──────────────────────────────────────────────────────────────┘");
+
+        Pokemon[] catalogo = CatalogoPokemon.crearCatalogo();
+
+        CombatePokemon combate = new CombatePokemon();
+
+        combate.iniciarCombate(entrada, catalogo, nombre_jugador);
+    }
+}
