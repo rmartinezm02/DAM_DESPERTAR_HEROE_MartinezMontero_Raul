@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class ProyectoPokemon
@@ -10,7 +11,9 @@ public class ProyectoPokemon
 
         System.out.println("Escribe el nombre de tu personaje: ");
         nombre_jugador = entrada.nextLine();
- do
+
+
+        do
         {
             System.out.println("┌──────────────────────────────────────────────────────────────┐");
             System.out.println("│      ┌────────────────────────────────────────────────┐      │");
@@ -116,7 +119,8 @@ public class ProyectoPokemon
 
         entrada.close();
     }
-     public static void iniciarPartida(Scanner entrada, String nombre_jugador)
+
+    public static void iniciarPartida(Scanner entrada, String nombre_jugador)
     {
         System.out.println("┌──────────────────────────────────────────────────────────────┐");
         System.out.println("│                                                              │");
