@@ -41,7 +41,8 @@ public class CatalogoPokemon
         catalogo[8].setAtaquePokemon(new AtaquePokemon("Garra Dragon", 35));
 
         // Butterfree
-        
+        catalogo[9] = new Pokemon("Butterfree", 55, 45, "Bicho");
+        catalogo[9].setAtaquePokemon(new AtaquePokemon("Zumbido", 30));
 
         return catalogo;
     }
