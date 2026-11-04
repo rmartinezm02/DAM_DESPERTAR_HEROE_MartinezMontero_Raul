@@ -148,3 +148,24 @@ public class EquipoPokemon
 
         return true;
     }
+
+    // Cambiar de Pokemon activo
+    public boolean cambiarPokemonActivo(int nuevaPosicion)
+    {
+        if (nuevaPosicion < 0 || nuevaPosicion >= pokemonElegido.length)
+        {
+            return false;
+        }
+
+        if (pokemonElegido[nuevaPosicion].EstaDebilitado())
+        {
+            System.out.println("Ese Pokemon esta debilitado.");
+            return false;
+        }
+
+        posicionPokemonActivo = nuevaPosicion;
+
+        System.out.println("Ahora combate " + devolverPokemonActivo().getNombre());
+
+        return true;
+    }
