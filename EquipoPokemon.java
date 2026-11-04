@@ -125,3 +125,26 @@ public class EquipoPokemon
 
         posicionPokemonActivo = 0;
     }
+
+     // Usar una pocion
+    public boolean usarPocion()
+    {
+        Pokemon activo = devolverPokemonActivo();
+
+        if (pociones <= 0)
+        {
+            System.out.println("No te quedan pociones.");
+            return false;
+        }
+
+        if (activo.getVida() >= 100)
+        {
+            System.out.println("Tu Pokemon ya tiene la vida al maximo.");
+            return false;
+        }
+
+        activo.CurarPocion();
+        pociones--;
+
+        return true;
+    }
