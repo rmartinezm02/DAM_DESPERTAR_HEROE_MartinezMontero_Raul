@@ -169,3 +169,18 @@ public class EquipoPokemon
 
         return true;
     }
+    
+    // Pasar al siguiente Pokemon vivo del equipo
+    public boolean avanzarSiguientePokemon()
+    {
+        for (int i = posicionPokemonActivo + 1; i < pokemonElegido.length; i++)
+        {
+            if (!pokemonElegido[i].EstaDebilitado())
+            {
+                posicionPokemonActivo = i;
+                return true;
+            }
+        }
+
+        return false;
+    }
