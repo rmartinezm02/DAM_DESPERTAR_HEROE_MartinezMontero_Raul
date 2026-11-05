@@ -169,7 +169,7 @@ public class EquipoPokemon
 
         return true;
     }
-    
+
     // Pasar al siguiente Pokemon vivo del equipo
     public boolean avanzarSiguientePokemon()
     {
@@ -184,3 +184,17 @@ public class EquipoPokemon
 
         return false;
     }
+
+    // Reiniciar todos los Pokemon
+    public void reiniciarEquipo()
+    {
+        for (int i = 0; i < pokemonElegido.length; i++)
+        {
+            pokemonElegido[i].ReiniciarCombate();
+        }
+
+        posicionPokemonActivo = 0;
+    }
+
+    
+}
