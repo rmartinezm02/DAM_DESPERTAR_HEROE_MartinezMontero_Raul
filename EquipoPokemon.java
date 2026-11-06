@@ -1,4 +1,7 @@
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class EquipoPokemon
 {
     // Atributos
@@ -45,7 +48,8 @@ public class EquipoPokemon
 
         return false;
     }
- // Elegir los tres Pokemon del jugador
+
+    // Elegir los tres Pokemon del jugador
     public void ElegirPokemon(Pokemon[] catalogo, Scanner entrada)
     {
         boolean[] seleccionados = new boolean[catalogo.length];
@@ -126,7 +130,7 @@ public class EquipoPokemon
         posicionPokemonActivo = 0;
     }
 
-     // Usar una pocion
+    // Usar una pocion
     public boolean usarPocion()
     {
         Pokemon activo = devolverPokemonActivo();
