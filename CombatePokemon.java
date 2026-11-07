@@ -30,3 +30,10 @@ public class CombatePokemon
 
         System.out.println(" El rival comienza con: "
                            + rival.devolverPokemonActivo().getNombre());
+
+        // Mientras ambos equipos tengan Pokemon vivos
+        while (jugador.hayPokemonVivos() && rival.hayPokemonVivos())
+        {
+            Pokemon pokemonJugador = jugador.devolverPokemonActivo();
+            Pokemon pokemonRival = rival.devolverPokemonActivo();
+
