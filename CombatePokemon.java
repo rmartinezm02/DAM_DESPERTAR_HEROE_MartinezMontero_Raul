@@ -31,9 +31,28 @@ public class CombatePokemon
         System.out.println(" El rival comienza con: "
                            + rival.devolverPokemonActivo().getNombre());
 
-        // Mientras ambos equipos tengan Pokemon vivos
+         // Mientras ambos equipos tengan Pokemon vivos
         while (jugador.hayPokemonVivos() && rival.hayPokemonVivos())
         {
             Pokemon pokemonJugador = jugador.devolverPokemonActivo();
             Pokemon pokemonRival = rival.devolverPokemonActivo();
+
+            // Si el Pokemon del jugador esta debilitado
+            if (pokemonJugador.EstaDebilitado())
+            {
+                System.out.println("\nTu Pokemon ha sido debilitado.");
+
+                System.out.println("Debes elegir otro Pokemon.");
+                mostrarEquipo(jugador);
+
+                do
+                {
+                    System.out.println("Elige un Pokemon:");
+                    opcion = leerNumero(entrada, 1, 3);
+
+                }
+                while (!jugador.cambiarPokemonActivo(opcion - 1));
+
+                pokemonJugador = jugador.devolverPokemonActivo();
+            }
 
