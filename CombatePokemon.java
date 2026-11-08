@@ -56,3 +56,152 @@ public class CombatePokemon
                 pokemonJugador = jugador.devolverPokemonActivo();
             }
 
+            // Reiniciar variables de cada turno
+            turnoEsquivado = false;
+            rivalHaEsquivado = false;
+            rivalDerrotadoEsteTurno = false;
+
+            // Mostrar estado del combate
+            System.out.println("└───────────────────────────────────────────────┘");
+            System.out.println("\n\n");
+            System.out.println("─────────────────────────────────────────────────────");
+
+            System.out.println("┌───────────┐");
+            System.out.println("│TU POKEMON:│");
+            System.out.println("└───────────┘");
+            mostrarPokemon(pokemonJugador);
+
+            System.out.println("┌──────────────┐");
+            System.out.println("│POKEMON RIVAL:│");
+            System.out.println("└──────────────┘");
+            mostrarPokemon(pokemonRival);
+
+            // Menu de acciones
+            System.out.println("┌────────────────────────────┐");
+            System.out.println("│      ELIGE TU ACCION       │");
+            System.out.println("└────────────────────────────┘");
+            System.out.println("┌────────────────────────────┐");
+            System.out.println("│1. Atacar                   │");
+            System.out.println("│2. Subir ataque             │");
+            System.out.println("│3. Subir defensa            │");
+            System.out.println("│4. Esquivar (" + esquivasRestantes + ")             │");
+            System.out.println("│5. Usar pocion (" + jugador.getPociones() + ")          │");
+            System.out.println("│6. Huir                     │");
+            System.out.println("└────────────────────────────┘");
+
+            opcion = leerNumero(entrada, 1, 6);
+            System.out.println("┌───────────────────────────────────────────────┐");
+
+
+            // Ejecutar accion del jugador
+            switch (opcion)
+            {
+                case 1:
+
+                    AtaquePokemon ataque = pokemonJugador.getAtaquePokemon();
+
+                    System.out.println("\n " + pokemonJugador.getNombre()
+                                       + " utiliza " + ataque.getNombre() + "!");
+
+                    // 20% de probabilidad de que el rival esquive
+                    if (Math.random() < 0.20)
+                    {
+                        rivalHaEsquivado = true;
+
+                        System.out.println(" ¡" + pokemonRival.getNombre()
+                                           + " ha esquivado el ataque!");
+
+                        // Al esquivar el rival, TÚ pierdes 15 ataque o 15 defensa
+                        if (Math.random() < 0.5)
+                        {
+                            pokemonJugador.setAtaque(pokemonJugador.getAtaque() - 15);
+                            System.out.println(" Al esquivar el rival, "
+                                               + pokemonJugador.getNombre()
+                                               + " ha perdido 15 puntos de ataque.");
+                        }
+                        else
+                        {
+                            pokemonJugador.setDefensa(pokemonJugador.getDefensa() - 15);
+                            System.out.println(" Al esquivar el rival, "
+                                               + pokemonJugador.getNombre()
+                                               + " ha perdido 15 puntos de defensa.");
+                        }
+                    }
+                    else
+                    {
+                        damage = (2 * pokemonJugador.getAtaque()
+                                  - pokemonRival.getDefensa()) / 5;
+
+                        if (damage < 0)
+                        {
+                            damage = 0;
+                        }
+
+                        System.out.println(" Ha causado " + damage + " puntos de daño.");
+                        pokemonRival.RecibirDamage(damage);
+                    }
+
+                break;
+
+                case 2:
+
+                    pokemonJugador.PotenciarAtaque();
+
+                break;
+
+                case 3:
+
+                    pokemonJugador.PotenciarDefensa();
+
+                break;
+
+                case 4:
+
+                    if (esquivasRestantes > 0)
+                    {
+                        esquivasRestantes--;
+                        turnoEsquivado = true;
+
+                        System.out.println("\n " + pokemonJugador.getNombre()
+                                           + " se prepara para esquivar!");
+
+                        // Al esquivar tú, el RIVAL pierde 15 ataque o 15 defensa
+                        if (Math.random() < 0.5)
+                        {
+                            pokemonRival.setAtaque(pokemonRival.getAtaque() - 15);
+                            System.out.println(" Al esquivar, " + pokemonRival.getNombre()
+                                               + " ha perdido 15 puntos de ataque.");
+                        }
+                        else
+                        {
+                            pokemonRival.setDefensa(pokemonRival.getDefensa() - 15);
+                            System.out.println(" Al esquivar, " + pokemonRival.getNombre()
+                                               + " ha perdido 15 puntos de defensa.");
+                        }
+
+                        System.out.println(" Esquivas restantes: " + esquivasRestantes);
+                    }
+                    else
+                    {
+                        System.out.println("\n Ya no te quedan esquivas contra este Pokemon.");
+                    }
+
+                break;
+
+                case 5:
+
+                    jugador.usarPocion();
+                    mostrarPokemon(pokemonJugador);
+
+                break;
+
+                case 6:
+
+                    System.out.println("┌─────────────────────┐");
+                    System.out.println("│Has huido del combate│");
+                    System.out.println("└─────────────────────┘");
+                    System.exit(0);
+
+                break;
+            }
+
