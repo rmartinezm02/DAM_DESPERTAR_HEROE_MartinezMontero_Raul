@@ -205,3 +205,63 @@ public class CombatePokemon
                 break;
             }
 
+
+            // Comprobar si el Pokemon rival ha sido derrotado
+            if (pokemonRival.EstaDebilitado())
+            {
+                enemigosDerrotados++;
+                rivalDerrotadoEsteTurno = true;
+
+                System.out.println("\n El Pokemon rival ha sido debilitado.");
+                System.out.println("Has conseguido 100 puntos.");
+
+                // Comprobar si quedan Pokemon rivales
+                if (!rival.avanzarSiguientePokemon())
+                {
+                    break;
+                }
+
+                // Reiniciar las esquivas para el nuevo rival
+                esquivasRestantes = 3;
+
+                pokemonRival = rival.devolverPokemonActivo();
+
+                System.out.println("\n El rival saca a "
+                                   + pokemonRival.getNombre() + "!");
+            }
+
+            // Turno del rival
+            // El rival no ataca si ha sido debilitado o acaba de salir otro Pokemon
+            if (!pokemonRival.EstaDebilitado() && !rivalDerrotadoEsteTurno)
+            {
+                if (turnoEsquivado)
+                {
+                    System.out.println("\n Has esquivado el ataque rival!");
+                }
+                else if (rivalHaEsquivado)
+                {
+                    System.out.println("\n " + pokemonRival.getNombre()
+                                       + " se ha centrado en esquivar y no ataca este turno.");
+                }
+                else
+                {
+                    AtaquePokemon ataqueRival = pokemonRival.getAtaquePokemon();
+
+                    damageRival = (2 * pokemonRival.getAtaque()
+                                   - pokemonJugador.getDefensa()) / 5;
+
+                    if (damageRival < 0)
+                    {
+                        damageRival = 0;
+                    }
+
+                    System.out.println("\n El rival contraataca!");
+                    System.out.println(" " + pokemonRival.getNombre()
+                                       + " utiliza " + ataqueRival.getNombre() + "!");
+                    System.out.println(" Ha causado " + damageRival + " puntos de daño.");
+
+                    pokemonJugador.RecibirDamage(damageRival);
+                }
+            }
+        }
+
