@@ -265,3 +265,129 @@ public class CombatePokemon
             }
         }
 
+         // Calcular puntuacion final
+        int puntuacionFinal = enemigosDerrotados * 100;
+
+        // Resultado final
+        System.out.println("===============================");
+        System.out.println("        FIN DEL COMBATE");
+        System.out.println("===============================");
+
+        if (jugador.hayPokemonVivos() && !rival.hayPokemonVivos())
+        {
+            System.out.println("┌─────────────────────────┐");
+            System.out.println("│ENHORABUENA HAS GANADO!!!│");
+            System.out.println("└─────────────────────────┘\n\n\n");
+        }
+        else
+        {
+            System.out.println("┌──────────────────────────────────────────────────┐");
+            System.out.println("│TODOS TUS POKEMONS SE HAN DEBILITADO. HAS PERDIDO.│");
+            System.out.println("└──────────────────────────────────────────────────┘");
+        }
+
+        // Guardar puntuacion en el ranking
+        GuardarRanking.agregarJugador(nombre_jugador, puntuacionFinal);
+
+        System.out.println("Partida registrada en el ranking con "
+                           + puntuacionFinal + " puntos.");
+
+        // Reiniciar estadisticas de ambos equipos
+        jugador.reiniciarEquipo();
+        rival.reiniciarEquipo();
+    }
+
+     // Mostrar datos de un Pokemon
+    public void mostrarPokemon(Pokemon pokemon)
+    {
+        int vida = pokemon.getVida();
+
+        if (vida >= 100)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("   ██████████" + pokemon.getVida() + "/100  ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida >= 90)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("   █████████░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida >= 80)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    ████████░░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida >= 70)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    ███████░░░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida >= 60)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    ██████░░░░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida >= 50)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    █████░░░░░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida >= 40)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    ████░░░░░░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida >= 30)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    ███░░░░░░░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida >= 20)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    ██░░░░░░░░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else if (vida > 0)
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    █░░░░░░░░░" + pokemon.getVida() + "/100   ");
+            System.out.println("└──────────────────────┘");
+        }
+        else
+        {
+            System.out.println("┌──────────────────────┐");
+            System.out.println("  " + pokemon.getNombre());
+            System.out.println("    ░░░░░░░░░░" + pokemon.getVida() + "/100    ");
+            System.out.println("└──────────────────────┘");
+        }
+
+        System.out.println("Tipo: " + pokemon.getTipo());
+        System.out.println("Ataque: " + pokemon.getAtaque());
+        System.out.println("Defensa: " + pokemon.getDefensa());
+
+        System.out.println("Ataque de daño: "
+                           + pokemon.getAtaquePokemon().getNombre()
+                           + " (" + pokemon.getAtaquePokemon().getDamageBase()
+                           + " puntos)");
+    }
+
+
