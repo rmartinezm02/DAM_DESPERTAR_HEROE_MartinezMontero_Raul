@@ -390,4 +390,20 @@ public class CombatePokemon
                            + " puntos)");
     }
 
+// Mostrar equipo del jugador
+    public void mostrarEquipo(EquipoPokemon equipo)
+    {
+        Pokemon[] lista = equipo.getPokemonElegido();
+
+        System.out.println("\n===== TU EQUIPO =====");
+
+        for (int i = 0; i < lista.length; i++)
+        {
+            System.out.println((i + 1) + ". "
+                               + lista[i].getNombre()
+                               + " - Vida: "
+                               + lista[i].getVida()
+                               + "/100");
+        }
+    }
 
