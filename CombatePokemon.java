@@ -390,5 +390,48 @@ public class CombatePokemon
                            + " puntos)");
     }
 
+ // Mostrar equipo del jugador
+    public void mostrarEquipo(EquipoPokemon equipo)
+    {
+        Pokemon[] lista = equipo.getPokemonElegido();
+
+        System.out.println("\n===== TU EQUIPO =====");
+
+        for (int i = 0; i < lista.length; i++)
+        {
+            System.out.println((i + 1) + ". "
+                               + lista[i].getNombre()
+                               + " - Vida: "
+                               + lista[i].getVida()
+                               + "/100");
+        }
+    }
+
+    // Leer un numero valido
+    public static int leerNumero(Scanner entrada, int minimo, int maximo)
+    {
+        int numero;
+
+        while (true)
+        {
+            if (entrada.hasNextInt())
+            {
+                numero = entrada.nextInt();
+
+                if (numero >= minimo && numero <= maximo)
+                {
+                    return numero;
+                }
+            }
+            else
+            {
+                entrada.next();
+            }
+
+            System.out.println("Introduce un numero entre "
+                               + minimo + " y " + maximo + ":");
+        }
+    }
+}
 
 
