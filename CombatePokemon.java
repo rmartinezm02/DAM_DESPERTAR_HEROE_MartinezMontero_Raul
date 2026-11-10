@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class CombatePokemon
@@ -31,7 +32,7 @@ public class CombatePokemon
         System.out.println(" El rival comienza con: "
                            + rival.devolverPokemonActivo().getNombre());
 
-         // Mientras ambos equipos tengan Pokemon vivos
+        // Mientras ambos equipos tengan Pokemon vivos
         while (jugador.hayPokemonVivos() && rival.hayPokemonVivos())
         {
             Pokemon pokemonJugador = jugador.devolverPokemonActivo();
@@ -91,7 +92,6 @@ public class CombatePokemon
 
             opcion = leerNumero(entrada, 1, 6);
             System.out.println("┌───────────────────────────────────────────────┐");
-
 
             // Ejecutar accion del jugador
             switch (opcion)
@@ -205,7 +205,6 @@ public class CombatePokemon
                 break;
             }
 
-
             // Comprobar si el Pokemon rival ha sido derrotado
             if (pokemonRival.EstaDebilitado())
             {
@@ -265,7 +264,7 @@ public class CombatePokemon
             }
         }
 
-         // Calcular puntuacion final
+        // Calcular puntuacion final
         int puntuacionFinal = enemigosDerrotados * 100;
 
         // Resultado final
@@ -297,7 +296,7 @@ public class CombatePokemon
         rival.reiniciarEquipo();
     }
 
-     // Mostrar datos de un Pokemon
+    // Mostrar datos de un Pokemon
     public void mostrarPokemon(Pokemon pokemon)
     {
         int vida = pokemon.getVida();
@@ -390,7 +389,7 @@ public class CombatePokemon
                            + " puntos)");
     }
 
- // Mostrar equipo del jugador
+    // Mostrar equipo del jugador
     public void mostrarEquipo(EquipoPokemon equipo)
     {
         Pokemon[] lista = equipo.getPokemonElegido();
@@ -433,5 +432,3 @@ public class CombatePokemon
         }
     }
 }
-
-
