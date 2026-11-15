@@ -1,15 +1,18 @@
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class LeerRanking
 {
-    // Mostrar ranking por consola
+    // Mostrar ranking ordenado por consola
     public static void mostrarRankingConsola()
     {
         try
@@ -37,21 +40,16 @@ public class LeerRanking
             String[] nombres = new String[jugadores.getLength()];
             int[] puntuaciones = new int[jugadores.getLength()];
 
-            // Leer los datos del XML
             for (int i = 0; i < jugadores.getLength(); i++)
             {
                 Element jugador = (Element) jugadores.item(i);
 
-                nombres[i] = jugador.getElementsByTagName("nombre")
-                                    .item(0).getTextContent();
-
+                nombres[i] = jugador.getElementsByTagName("nombre").item(0).getTextContent();
                 puntuaciones[i] = Integer.parseInt(
-                    jugador.getElementsByTagName("puntuacion")
-                           .item(0).getTextContent()
+                    jugador.getElementsByTagName("puntuacion").item(0).getTextContent()
                 );
             }
 
-            // Ordenar de mayor a menor
             ordenarRanking(nombres, puntuaciones);
 
             System.out.println("\n================================");
@@ -60,9 +58,7 @@ public class LeerRanking
 
             for (int i = 0; i < nombres.length; i++)
             {
-                System.out.println((i + 1) + ". "
-                                   + nombres[i] + " - "
-                                   + puntuaciones[i] + " puntos");
+                System.out.println((i + 1) + ". " + nombres[i] + " - " + puntuaciones[i] + " puntos");
             }
 
             System.out.println("================================");
@@ -73,136 +69,29 @@ public class LeerRanking
         }
     }
 
-
-    // Generar la pagina HTML
+    // Generar la página HTML automáticamente aplicando la hoja ranking.xsl
     public static void generarHTML()
     {
         try
         {
-            File archivo = new File("RankingPokemon.xml");
+            TransformerFactory fabrica = TransformerFactory.newInstance();
+            Source xslt = new StreamSource(new File("ranking.xsl"));
+            Transformer transformador = fabrica.newTransformer(xslt);
 
-            String[] nombres;
-            int[] puntuaciones;
+            Source xml = new StreamSource(new File("RankingPokemon.xml"));
+            StreamResult salida = new StreamResult(new File("RankingPokemon.html"));
 
-            if (archivo.exists())
-            {
-                DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
-                DocumentBuilder constructor = fabrica.newDocumentBuilder();
-                Document documento = constructor.parse(archivo);
+            transformador.transform(xml, salida);
 
-                NodeList jugadores = documento.getElementsByTagName("jugador");
-
-                nombres = new String[jugadores.getLength()];
-                puntuaciones = new int[jugadores.getLength()];
-
-                for (int i = 0; i < jugadores.getLength(); i++)
-                {
-                    Element jugador = (Element) jugadores.item(i);
-
-                    nombres[i] = jugador.getElementsByTagName("nombre")
-                                        .item(0).getTextContent();
-
-                    puntuaciones[i] = Integer.parseInt(
-                        jugador.getElementsByTagName("puntuacion")
-                               .item(0).getTextContent()
-                    );
-                }
-            }
-            else
-            {
-                nombres = new String[0];
-                puntuaciones = new int[0];
-            }
-
-            // Ordenar los resultados
-            ordenarRanking(nombres, puntuaciones);
-
-            // Crear el archivo HTML
-            BufferedWriter escritor = new BufferedWriter(
-                new FileWriter("RankingPokemon.html")
-            );
-
-            escritor.write("<!DOCTYPE html>");
-            escritor.newLine();
-            escritor.write("<html lang=\"es\">");
-            escritor.newLine();
-            escritor.write("<head>");
-            escritor.newLine();
-            escritor.write("<meta charset=\"UTF-8\">");
-            escritor.newLine();
-            escritor.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-            escritor.newLine();
-            escritor.write("<title>Ranking Pokemon</title>");
-            escritor.newLine();
-            escritor.write("<link rel=\"stylesheet\" href=\"EstiloRanking.css\">");
-            escritor.newLine();
-            escritor.write("</head>");
-            escritor.newLine();
-
-            escritor.write("<body>");
-            escritor.newLine();
-
-            escritor.write("<main>");
-            escritor.newLine();
-            escritor.write("<h1>RANKING POKEMON</h1>");
-            escritor.newLine();
-            escritor.write("<table>");
-            escritor.newLine();
-
-            escritor.write("<tr>");
-            escritor.write("<th>POSICION</th>");
-            escritor.write("<th>JUGADOR</th>");
-            escritor.write("<th>PUNTUACION</th>");
-            escritor.write("</tr>");
-            escritor.newLine();
-
-            if (nombres.length == 0)
-            {
-                escritor.write("<tr><td colspan=\"3\">Todavia no hay partidas registradas</td></tr>");
-                escritor.newLine();
-            }
-            else
-            {
-                for (int i = 0; i < nombres.length; i++)
-                {
-                    escritor.write("<tr>");
-
-                    escritor.write("<td>" + (i + 1) + "</td>");
-
-                    escritor.write("<td>"
-                                    + escaparHTML(nombres[i])
-                                    + "</td>");
-
-                    escritor.write("<td>"
-                                    + puntuaciones[i]
-                                    + " puntos</td>");
-
-                    escritor.write("</tr>");
-                    escritor.newLine();
-                }
-            }
-
-            escritor.write("</table>");
-            escritor.newLine();
-            escritor.write("</main>");
-            escritor.newLine();
-
-            escritor.write("</body>");
-            escritor.newLine();
-            escritor.write("</html>");
-
-            escritor.close();
-
-            System.out.println("Pagina HTML del ranking actualizada.");
+            System.out.println("Página HTML generada con XSLT correctamente.");
         }
         catch (Exception e)
         {
-            System.out.println("Error al generar el HTML: " + e.getMessage());
+            System.out.println("Error al generar el HTML con XSLT: " + e.getMessage());
         }
     }
 
-
-    // Ordenar los arrays de mayor a menor puntuacion
+    // Método auxiliar para ordenar los arrays en la consola
     public static void ordenarRanking(String[] nombres, int[] puntuaciones)
     {
         for (int i = 0; i < puntuaciones.length - 1; i++)
@@ -221,17 +110,5 @@ public class LeerRanking
                 }
             }
         }
-    }
-
-
-    // Evitar que los nombres rompan el codigo HTML
-    public static String escaparHTML(String texto)
-    {
-        texto = texto.replace("&", "&amp;");
-        texto = texto.replace("<", "&lt;");
-        texto = texto.replace(">", "&gt;");
-        texto = texto.replace("\"", "&quot;");
-
-        return texto;
     }
 }
