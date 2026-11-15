@@ -20,7 +20,6 @@ public class GuardarRanking
 
             DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
             DocumentBuilder constructor = fabrica.newDocumentBuilder();
-
             Document documento;
 
             if (archivo.exists())
@@ -30,14 +29,13 @@ public class GuardarRanking
             else
             {
                 documento = constructor.newDocument();
-
                 Element ranking = documento.createElement("ranking");
                 documento.appendChild(ranking);
             }
 
             Element ranking = documento.getDocumentElement();
 
-            // Buscar el siguiente ID
+            // Buscar el siguiente ID disponible
             NodeList jugadores = documento.getElementsByTagName("jugador");
             int id = 1;
 
@@ -52,7 +50,7 @@ public class GuardarRanking
                 }
             }
 
-            // Crear el nuevo jugador
+            // Crear el nuevo nodo del jugador
             Element jugador = documento.createElement("jugador");
             jugador.setAttribute("id", String.valueOf(id));
 
@@ -64,10 +62,9 @@ public class GuardarRanking
 
             jugador.appendChild(elementoNombre);
             jugador.appendChild(elementoPuntuacion);
-
             ranking.appendChild(jugador);
 
-            // Guardar los cambios en el XML
+            // Guardar los cambios en el archivo físico XML
             TransformerFactory fabricaTransformador = TransformerFactory.newInstance();
             Transformer transformador = fabricaTransformador.newTransformer();
 
@@ -81,7 +78,7 @@ public class GuardarRanking
 
             System.out.println("Partida guardada en el ranking.");
 
-            // Actualizar automáticamente el HTML
+            // Actualizar automáticamente la página HTML mediante XSLT
             LeerRanking.generarHTML();
         }
         catch (Exception e)
