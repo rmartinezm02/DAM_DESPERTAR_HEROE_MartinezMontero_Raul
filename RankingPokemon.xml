@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ranking>
+
+
+    <jugador id="1">
+
+        <nombre>Raul</nombre>
+
+        <puntuacion>300</puntuacion>
+
+    </jugador>
+
+    <jugador id="2">
+        <nombre>Ash</nombre>
+        <puntuacion>300</puntuacion>
+    </jugador>
+</ranking>
