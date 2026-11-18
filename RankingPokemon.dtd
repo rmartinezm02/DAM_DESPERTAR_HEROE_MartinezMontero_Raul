@@ -7,3 +7,5 @@
 >
 <!ELEMENT nombre (#PCDATA)>
 <!ELEMENT puntuacion (#PCDATA)>
+
+

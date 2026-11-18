@@ -228,7 +228,7 @@ public class CombatePokemon
                                    + pokemonRival.getNombre() + "!");
             }
 
-            // Turno del rival
+            // ---------------------Turno del rival-------------------------------------
             // El rival no ataca si ha sido debilitado o acaba de salir otro Pokemon
             if (!pokemonRival.EstaDebilitado() && !rivalDerrotadoEsteTurno)
             {
@@ -263,7 +263,7 @@ public class CombatePokemon
             }
         }
 
-        // Calcular puntuacion final
+        // --------------------Calcular puntuacion final-----------------------
         int puntuacionFinal = enemigosDerrotados * 100;
 
         // Resultado final
