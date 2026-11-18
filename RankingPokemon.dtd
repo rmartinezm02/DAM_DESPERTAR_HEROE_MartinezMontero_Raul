@@ -1,0 +1,9 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT ranking (jugador+)>
+<!ELEMENT jugador (nombre, puntuacion)>
+<!ATTLIST jugador
+    id CDATA #REQUIRED
+>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT puntuacion (#PCDATA)>
